@@ -1,4 +1,4 @@
-#include "include/list.h"
+#include <list.h>
 #include <cstdlib>
 
 List::List(size_t size)

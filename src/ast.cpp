@@ -1,4 +1,4 @@
-#include "include/ast.h"
+#include <ast.h>
 
 AST::AST(SyntaxType type)
 {
@@ -28,12 +28,12 @@ void AST::set_value(AST *value)
     this->value = value;
 }
 
-int32_t AST::get_datatype()
+int AST::get_datatype()
 {
     return data_type;
 }
 
-void AST::set_datatype(int32_t type)
+void AST::set_datatype(int type)
 {
     this->data_type = type;
 }
@@ -48,12 +48,12 @@ void AST::set_type(SyntaxType type)
     this->type = type;
 }
 
-int32_t AST::get_intvalue()
+int AST::get_intvalue()
 {
     return int_value;
 }
 
-void AST::set_intvalue(int32_t value)
+void AST::set_intvalue(int value)
 {
     this->int_value = value;
 }

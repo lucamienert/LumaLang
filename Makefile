@@ -1,13 +1,13 @@
 exec = lumalang.out
-sources = $(wildcard src/*.c)
-objects = $(sources:.c=.o)
-flags = -g -I/include
+sources = $(wildcard src/*.cpp)
+objects = $(sources:.cpp=.o)
+flags = -g -Wall -lm -ldl -fPIC -rdynamic -Iinclude
+
+%.o: %.cpp
+	g++ -std=c++11 ${flags} -c $< -o $@
 
 $(exec): $(objects)
-	g++ $(objects) $(flags) -o $(exec)
-
-%.o: %.c include/%.h
-	g++ -c $(flags) $< -o $@
+	g++ -std=c++11 -g $(objects) $(flags) -Iinclude -o $(exec)
 
 clean:
 	-rm *.out

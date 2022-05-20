@@ -28,28 +28,28 @@ private:
     List *children;
     std::string name;
     AST *value;
-    int32_t int_value;
-    int32_t data_type;
+    int int_value;
+    int data_type;
 
 public:
     AST(SyntaxType type);
 
-    std::string getName();
-    void setName(std::string name);
+    std::string get_name();
+    void set_name(std::string name);
     
-    AST *getValue();
-    void setValue(AST *value);
+    AST *get_value();
+    void set_value(AST *value);
 
-    int32_t getDataType();
-    void setDataType(int32_t type);
+    int get_datatype();
+    void set_datatype(int type);
     
-    SyntaxType getType();
-    void setType(SyntaxType type);
+    SyntaxType get_type();
+    void set_type(SyntaxType type);
 
-    int32_t getIntValue();
-    void setIntValue(int32_t value);
+    int get_intvalue();
+    void set_intvalue(int value);
 
-    List *getChildren();
+    List *get_children();
 };
 
 #endif

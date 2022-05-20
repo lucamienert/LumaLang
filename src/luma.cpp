@@ -1,8 +1,8 @@
-#include "include/luma.h"
-#include "include/parser.h"
-#include "include/tokenizer.h"
-#include "include/ast.h"
-#include "include/asm_frontend.h"
+#include <luma.h>
+#include <parser.h>
+#include <tokenizer.h>
+#include <ast.h>
+#include <asm_frontend.h>
 
 void compile(std::string filename)
 {
@@ -22,6 +22,6 @@ void compile(std::string filename)
     out << s;
     out.close();
 
-    /*shell_command("as test.s -o test.o");
-    shell_command("ld test.o -o test.out");*/
+    shell_command("as test.s -o test.o");
+    shell_command("ld test.o -o test.out");
 }

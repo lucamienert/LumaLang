@@ -1,4 +1,4 @@
-#include "include/asm_frontend.h"
+#include <asm_frontend.h>
 
 std::string section_data = ".data\n";
 std::string section_bss = ".bss\n";

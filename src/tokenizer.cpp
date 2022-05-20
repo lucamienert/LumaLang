@@ -1,4 +1,4 @@
-#include "include/tokenizer.h"
+#include <tokenizer.h>
 
 #define MIN(a, b) \
     a < b ? a : b
@@ -31,7 +31,7 @@ void Tokenizer::skip_comment()
 
 }
 
-char Tokenizer::peek(int32_t buffer)
+char Tokenizer::peek(int buffer)
 {
     return source[MIN(index + buffer, source_size)];
 }
