@@ -1,0 +1,6 @@
+fun test(x) {
+    sysout(x);
+};
+
+test("Test");
+
