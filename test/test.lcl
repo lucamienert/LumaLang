@@ -1,6 +1,5 @@
-fun test(x) {
-    sysout(x);
-};
-
-test("Test");
-
+main()
+{
+    sysout("Hello World");
+    return 0;
+}
