@@ -1,4 +1,4 @@
-#include <parser.h>
+#include "include/parser.h"
 
 Parser::Parser(Tokenizer *tokenizer)
 {
@@ -41,9 +41,9 @@ AST *Parser::parse_id()
         return ast;
     }
 
-    if (token->getType() == TOKEN_EQUALS)
+    if (token->get_type() == TOKEN_EQUALS)
     {
-        parser_eat(TOKEN_EQUALS);
+        eat(TOKEN_EQUALS);
         AST *ast = new AST(ST_ASSIGNMENT);
         ast->set_name(value);
         ast->set_value(parse_expression());
@@ -163,9 +163,15 @@ AST *Parser::parse_compound()
     return compound;
 }
 
-AST *Parser::parse_conditional() {}
+AST *Parser::parse_conditional() 
+{
+    return new AST(ST_NOOP);
+}
 
-AST *Parser::parse_loop() {}
+AST *Parser::parse_loop() 
+{
+    return new AST(ST_NOOP);
+}
 
 AST *Parser::parse_return()
 {

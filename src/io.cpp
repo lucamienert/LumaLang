@@ -1,19 +1,19 @@
-#include <io.h>
+#include "include/io.h"
 
 std::string get_file_content(std::string filename)
 {
-    fstream inStream;
-    in.open(filename, ios::in);
+    std::fstream inStream;
+    inStream.open(filename, std::ios::in);
 
-    if(!in.good())
+    if(!inStream.good())
         exit(1);
 
     std::string source;
     std::string temp;
 
-    while(!in.eof())
+    while(!inStream.eof())
     {
-        getline(in, temp);
+        std::getline(inStream, temp);
         source += temp;
     }
 
@@ -24,9 +24,9 @@ std::string get_file_content(std::string filename)
 
 std::string shell_command(std::string command)
 {
-    std::array<char, 128> buffer;
+    /*std::array<char, 128> buffer;
     std::string result;
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command, "r"), pclose);
 
     if (!pipe)
         throw std::runtime_error("popen() failed!");
@@ -34,5 +34,6 @@ std::string shell_command(std::string command)
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
         result += buffer.data();
 
-    return result;
+    return result;*/
+    return "";
 }

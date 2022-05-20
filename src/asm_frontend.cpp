@@ -1,4 +1,4 @@
-#include <asm_frontend.h>
+#include "include/asm_frontend.h"
 
 std::string section_data = ".data\n";
 std::string section_bss = ".bss\n";
@@ -13,7 +13,7 @@ static std::string asm_f_compound(AST *ast)
 
     for(int i = 0; i < (int) ast->get_children()->get_size(); ++i)
     {
-        AST *child = ast->get_children()->get_items(i);
+        AST *child = (AST*)ast->get_children()->get_items(i);
         std::string next = asm_f(child);
         value += next;
     }
@@ -25,17 +25,17 @@ static std::string asm_f_assignment(AST *ast)
 {
     std::string s = "";
     std::string name = ast->get_name();
-    std::strig value = ((AST*) ast->get_value()->get_children()->get_items(0))->get_name();
+    std::string value = ((AST*) ast->get_value()->get_children()->get_items(0))->get_name();
 
     if(value != "")
     {
-        std::string assign_string = name "_str: .ascii \"" + value + "\"\n" + name + "_str_len = .- " + name + "_str\n";
+        std::string assign_string = name + "_str: .ascii \"" + value + "\"\n" + name + "_str_len = .- " + name + "_str\n";
         section_data += assign_string;
     }
     else
     {
         int int_value = ((AST*) ast->get_value()->get_children()->get_items(0))->get_intvalue();
-        std::string assign_int = name + ": .int " + to_string(int_value) + "\n" + name + "_str: .ascii \"" + to_string(int_value) + "\"\n" + name + "_str_len = .- " + name + "_str\n";
+        std::string assign_int = name + ": .int " + std::to_string(int_value) + "\n" + name + "_str: .ascii \"" + std::to_string(int_value) + "\"\n" + name + "_str_len = .- " + name + "_str\n";
         section_data += assign_int;
     }
 
@@ -55,30 +55,6 @@ static std::string asm_f_variable(AST *ast)
     return s;
 }
 
-static std::string asm_f_function(AST *ast)
-{
-    std::string s;
-
-    if(ast->get_value()->get_type() == ST_CALL)
-    {
-        std::string call = asm_f_call(ast);
-        return call;
-    }
-
-    const std::string temp = ".global " + ast->get_name() + "\n" + ast->get_name() + ":\n";
-
-    s = temp;
-
-    AST *as_val = ast->get_value();
-
-    std::string val = asm_f(as_val->get_value());
-
-    s += val;
-    s += "ret\n";
-
-    return s;
-}
-
 static std::string asm_f_int(AST *ast)
 {
     return "";
@@ -91,7 +67,7 @@ static std::string asm_f_call(AST *ast)
     if(ast->get_name() == "ret")
     {
         AST *arg = (AST*) (ast->get_value()->get_children()->get_size() ? ast->get_value()->get_children()->get_items(0) : nullptr);
-        const std::string temp = "mov $" + to_string(arg ? arg->getIntValue() : 0) + ", \%eax\n";
+        const std::string temp = "mov $" + std::to_string(arg ? arg->get_intvalue() : 0) + ", \%eax\n";
 
         s += temp;
         return s;
@@ -99,7 +75,7 @@ static std::string asm_f_call(AST *ast)
 
     if(ast->get_name() == "sysout")
     {
-        int num_of_arg = ((AST*)ast->get_value()->get_children()->get_items(0))->get_children()->getSize();
+        int num_of_arg = ((AST*)ast->get_value()->get_children()->get_items(0))->get_children()->get_size();
 
         for (int i = 0; i < num_of_arg; i++)
         {
@@ -110,19 +86,19 @@ static std::string asm_f_call(AST *ast)
                 std::string value = "";
 
                 if (print_arg->get_type() == ST_INT)
-                    value = to_string(print_arg->getIntValue());
+                    value = std::to_string(print_arg->get_intvalue());
                 else
                     value = print_arg->get_name();
 
                 std::string define = 
-                    "text" + to_string(string_counter) + ": .ascii \"" + value + "\"\n" \
-                    "text" + to_string(string_counter) + "_len = .- text" + to_string(string_counter) + "\n";
+                    "text" + std::to_string(string_counter) + ": .ascii \"" + value + "\"\n" \
+                    "text" + std::to_string(string_counter) + "_len = .- text" + std::to_string(string_counter) + "\n";
 
                 const std::string print = 
                     "mov $4, %eax\n" \
                     "mov $1, %ebx\n" \
-                    "mov $text" + to_string(string_counter) + ", %ecx\n" \
-                    "mov $text" + to_string(string_counter) + "_len, %edx\n" \
+                    "mov $text" + std::to_string(string_counter) + ", %ecx\n" \
+                    "mov $text" + std::to_string(string_counter) + "_len, %edx\n" \
                     "int $0x80\n";
 
                 string_counter++;
@@ -153,9 +129,9 @@ static std::string asm_f_call(AST *ast)
         AST *scan_arg = ((AST*)((AST*) ast->get_value()->get_children()->get_items(0))->get_children()->get_items(0));
         if (scan_arg->get_type() == ST_VARIABLE)
         {
-            string var_name = scan_arg->get_name();
+            std::string var_name = scan_arg->get_name();
             
-            const string scan = 
+            const std::string scan =
                 "mov $3, %eax\n" \
                 "mov $0, %ebx\n" \
                 "mov $" + var_name + "_str, %ecx\n" \
@@ -169,6 +145,30 @@ static std::string asm_f_call(AST *ast)
     }
 
     s += "call " + ast->get_name() + "\n";
+
+    return s;
+}
+
+static std::string asm_f_function(AST* ast)
+{
+    std::string s;
+
+    if (ast->get_value()->get_type() == ST_CALL)
+    {
+        std::string call = asm_f_call(ast);
+        return call;
+    }
+
+    const std::string temp = ".global " + ast->get_name() + "\n" + ast->get_name() + ":\n";
+
+    s = temp;
+
+    AST* as_val = ast->get_value();
+
+    std::string val = asm_f(as_val->get_value());
+
+    s += val;
+    s += "ret\n";
 
     return s;
 }

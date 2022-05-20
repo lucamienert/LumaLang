@@ -1,0 +1,5 @@
+main()
+{
+	sysout("Hello world");
+	return 0;
+}

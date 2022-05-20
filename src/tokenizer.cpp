@@ -1,9 +1,9 @@
-#include <tokenizer.h>
+#include "include/tokenizer.h"
 
 #define MIN(a, b) \
     a < b ? a : b
 
-Lexer::Lexer(std::string source)
+Tokenizer::Tokenizer(std::string source)
 {
     this->source = source;
     this->index = 0;
@@ -11,38 +11,38 @@ Lexer::Lexer(std::string source)
     this->current = source[this->index];
 }
 
-void next()
+void Tokenizer::next()
 {
-    if(current == '\0' && index > source_size)
-        return;
-
-    ++index;
-    current = source[index];
+    if (current != '\0' && index < source_size)
+    {
+        index += 1;
+        current = source[index];
+    }
 }
 
-void skip_whitespace()
+void Tokenizer::skip_whitespace()
 {
     while(current == 13 || current == 10 || current == ' ' || current == '\t')
         next();
 }
 
-void skip_comment()
+void Tokenizer::skip_comment()
 {
 
 }
 
-char peek(int32_t buffer)
+char Tokenizer::peek(int32_t buffer)
 {
     return source[MIN(index + buffer, source_size)];
 }
 
-Token *move_with_token(Token *token)
+Token *Tokenizer::move_with_token(Token *token)
 {
     next();
     return token;
 }
 
-Token *move_current(Type type)
+Token *Tokenizer::move_current(Type type)
 {
     std::string value = "";
     value += current;
@@ -52,7 +52,7 @@ Token *move_current(Type type)
     return token;
 }
 
-Token *next_token()
+Token *Tokenizer::next_token()
 {
     while(current != '\0')
     {
@@ -78,16 +78,17 @@ Token *next_token()
             case '+': return move_current(TOKEN_PLUS);
             case '-': return move_current(TOKEN_MINUS);
             case '*': return move_current(TOKEN_ASTERISK);
-            case '"': return this->lexer_parse_id();
+            case '=': return move_with_token(new Token("=", TOKEN_EQUALS));
+            case '"': return parse_id();
             case '\0': break;
-            default: exit(1); break;
+            default: std::cout << "CURRENT: [" << current << "]" << std::endl; exit(1); break;
         }
     }
 
-    return new Token("\0", TOKEN_END_OF_FILE);
+    return new Token("0", TOKEN_END_OF_FILE);
 }
 
-Token *parse_id()
+Token * Tokenizer::parse_id()
 {
     std::string value = "";
 
@@ -127,7 +128,7 @@ Token *parse_id()
     return token;
 }
 
-Token *parse_number()
+Token * Tokenizer::parse_number()
 {
     std::string value = "";
 

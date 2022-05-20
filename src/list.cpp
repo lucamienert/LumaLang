@@ -1,4 +1,5 @@
-#include <list.h>
+#include "include/list.h"
+#include <cstdlib>
 
 List::List(size_t size)
 {
@@ -18,12 +19,12 @@ void List::list_push(void *item)
     items[size - 1] = item;
 }
 
-void *get_items(int index)
+void *List::get_items(int index)
 {
     return items[index];
 }
 
-size_t get_size()
+size_t List::get_size()
 {
     return size;
 }

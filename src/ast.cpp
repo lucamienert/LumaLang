@@ -1,4 +1,4 @@
-#include <ast.h>
+#include "include/ast.h"
 
 AST::AST(SyntaxType type)
 {
@@ -8,57 +8,57 @@ AST::AST(SyntaxType type)
         this->children = new List(sizeof(AST*));
 }
 
-std::string AST::getName()
+std::string AST::get_name()
 {
     return name;
 }
 
-void AST::setName(std::string name)
+void AST::set_name(std::string name)
 {
     this->name = name;
 }
 
-AST *AST::getValue()
+AST *AST::get_value()
 {
     return value;
 }
 
-void AST::setValue(AST *value)
+void AST::set_value(AST *value)
 {
     this->value = value;
 }
 
-int32_t AST::getDataType()
+int32_t AST::get_datatype()
 {
     return data_type;
 }
 
-void AST::setDataType(int32_t type)
+void AST::set_datatype(int32_t type)
 {
     this->data_type = type;
 }
 
-SyntaxType AST::getType()
+SyntaxType AST::get_type()
 {
     return type;
 }
 
-void AST::setType(SyntaxType type)
+void AST::set_type(SyntaxType type)
 {
     this->type = type;
 }
 
-int32_t AST::getIntValue()
+int32_t AST::get_intvalue()
 {
     return int_value;
 }
 
-void AST::setIntValue(int32_t value)
+void AST::set_intvalue(int32_t value)
 {
     this->int_value = value;
 }
 
-List *AST::getChildren()
+List *AST::get_children()
 {
     return children;
 }
