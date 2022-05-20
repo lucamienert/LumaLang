@@ -1,13 +1,13 @@
 exec = lumalang.out
 sources = $(wildcard src/*.c)
 objects = $(sources:.c=.o)
-flags = -g
+flags = -g -I/include
 
 $(exec): $(objects)
-	gcc $(objects) $(flags) -o $(exec)
+	g++ $(objects) $(flags) -o $(exec)
 
 %.o: %.c include/%.h
-	gcc -c $(flags) $< -o $@
+	g++ -c $(flags) $< -o $@
 
 clean:
 	-rm *.out
