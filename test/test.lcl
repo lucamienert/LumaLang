@@ -1,5 +1,5 @@
 main()
 {
     sysout("Hello World");
-    return 0;
+    ret 0;
 }
