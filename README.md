@@ -10,5 +10,5 @@ make
 ## Usage
 
 ```
-./lumalang <file with .lcl>
+./lumalang.out <file with .lcl>
 ```
