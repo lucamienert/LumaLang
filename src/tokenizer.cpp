@@ -59,10 +59,10 @@ Token *Tokenizer::next_token()
         skip_whitespace();
 
         if(isalpha(current))
-            parse_id();
+            return parse_id();
 
         if(isdigit(current))
-            parse_number();
+            return parse_number();
 
         switch(current)
         {
