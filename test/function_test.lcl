@@ -1,0 +1,13 @@
+fnTest(param)
+{
+	def i;
+	sysin(i);
+	sysout(param);
+	sysout(i);
+}
+
+main()
+{
+	fnTest("Hello");
+	ret 0;
+}
