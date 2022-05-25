@@ -1,4 +1,5 @@
 #include <tokenizer.h>
+#include <error.h>
 
 #define MIN(a, b) \
     a < b ? a : b
@@ -81,14 +82,14 @@ Token *Tokenizer::next_token()
             case '=': return move_with_token(new Token("=", TOKEN_EQUALS));
             case '"': return parse_id();
             case '\0': break;
-            default: std::cout << "CURRENT: [" << current << "]" << std::endl; exit(1); break;
+            default: log(current, ERROR_UNEXPECTED_TOKEN); exit(1); break;
         }
     }
 
     return new Token("0", TOKEN_END_OF_FILE);
 }
 
-Token * Tokenizer::parse_id()
+Token *Tokenizer::parse_id()
 {
     std::string value = "";
 
@@ -130,7 +131,7 @@ Token * Tokenizer::parse_id()
     return token;
 }
 
-Token * Tokenizer::parse_number()
+Token *Tokenizer::parse_number()
 {
     std::string value = "";
 

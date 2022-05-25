@@ -9,7 +9,10 @@ Parser::Parser(Tokenizer *tokenizer)
 Token *Parser::eat(Type type)
 {
     if(token->get_type() != type)
+    {
+        log(token->get_type(), ERROR_UNEXPECTED_TOKEN);
         exit(1);
+    }
 
     token = tokenizer->next_token();
     return token;

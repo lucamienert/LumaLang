@@ -1,4 +1,5 @@
 #include <asm_frontend.h>
+#include <error.h>
 
 std::string section_data = ".data\n";
 std::string section_bss = ".bss\n";
@@ -223,7 +224,7 @@ std::string asm_f(AST *ast)
         case ST_FUNCTION:
             next_value = asm_f_function(ast);
             break;
-        default: exit(1);
+        default: log(ast->get_type(), ERROR_WRONG_AST_TYPE); exit(1);
     }
 
     value += next_value;
