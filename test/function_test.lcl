@@ -1,4 +1,4 @@
-fnTest(param)
+fun fnTest(param)
 {
 	def i;
 	sysin(i);
@@ -6,7 +6,7 @@ fnTest(param)
 	sysout(i);
 }
 
-main()
+fun main()
 {
 	fnTest("Hello");
 	ret 0;

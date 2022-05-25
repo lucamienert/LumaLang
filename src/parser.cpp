@@ -139,6 +139,7 @@ AST *Parser::parse_statement()
 
 AST *Parser::parse_compound()
 {
+    eat(TOKEN_FUN);
     bool should_close = false;
 
     if (token->get_type() == TOKEN_LEFT_BRACE)

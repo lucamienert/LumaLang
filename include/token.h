@@ -14,6 +14,7 @@ enum Type
     TOKEN_IF,
     TOKEN_WHILE,
     TOKEN_LET,
+    TOKEN_FUN,
     TOKEN_RETURN,
     TOKEN_LEFT_PAREN,    // (
     TOKEN_RIGHT_PAREN,   // )

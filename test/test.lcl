@@ -1,4 +1,4 @@
-main()
+fun main()
 {
     sysout("Hello World");
     ret 0;

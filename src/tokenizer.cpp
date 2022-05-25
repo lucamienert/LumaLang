@@ -122,6 +122,8 @@ Token * Tokenizer::parse_id()
         token = new Token(value, TOKEN_LET);
     else if (value == "ret")
         token = new Token(value, TOKEN_RETURN);
+    else if (value == "fun")
+        token = new Token(value, TOKEN_FUN);
     else
         token = new Token(value, TOKEN_ID);
 
