@@ -25,7 +25,7 @@ std::string get_file_content(std::string filename)
 std::string shell_command(std::string command)
 {
     std::array<char, 128> buffer;
-    std::string result;
+    std::string result("");
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command, "r"), pclose);
 
     if (!pipe)
@@ -35,5 +35,4 @@ std::string shell_command(std::string command)
         result += buffer.data();
 
     return result;
-    return "";
 }
