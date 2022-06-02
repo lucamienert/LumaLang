@@ -69,17 +69,23 @@ AST *Parser::parse_block()
 {
     eat(TOKEN_LEFT_PAREN);
 
-    AST *ast = new AST(ST_COMPOUND);
+    AST* ast = new AST(ST_COMPOUND);
 
-    while(token->get_type() != TOKEN_RIGHT_PAREN)
+    while (token->get_type() != TOKEN_RIGHT_PAREN)
         (ast->get_children())->list_push(parse_expression());
 
     eat(TOKEN_RIGHT_PAREN);
 
-    if(token->get_type() == TOKEN_LEFT_BRACE)
+    if (token->get_type() == TOKEN_COLON)
     {
-        ast->set_type(ST_FUNCTION);
-        ast->set_value(parse_compound());
+        eat(TOKEN_COLON);
+        eat(TOKEN_FUN);
+
+        if (token->get_type() == TOKEN_LEFT_BRACE)
+        {
+            ast->set_type(ST_FUNCTION);
+            ast->set_value(parse_compound());
+        }
     }
     else
         ast->set_type(ST_CALL);
