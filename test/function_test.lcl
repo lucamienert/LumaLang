@@ -1,13 +1,11 @@
-fun fnTest(param)
-{
-	def i;
-	sysin(i);
-	sysout(param);
-	sysout(i);
+fnTest(param): fun {
+    def i;
+    sysin(i);
+    sysout(param);
+    sysout(i);
 }
 
-fun main()
-{
-	fnTest("Hello");
-	ret 0;
+main(): fun {
+    fnTest("Hello");
+    ret 0;
 }
