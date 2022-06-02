@@ -15,13 +15,13 @@ void compile(std::string filename)
     std::string s = asm_f_root(root);
 
     std::fstream out;
-    out.open("test.s", std::ios::out);
+    out.open("output.s", std::ios::out);
     if(!out.good())
         exit(1);
 
     out << s;
     out.close();
 
-    shell_command("as test.s -o test.o");
-    shell_command("ld test.o -o test.out");
+    shell_command("as output.s -o output.o");
+    shell_command("ld output.o -o output.out");
 }
