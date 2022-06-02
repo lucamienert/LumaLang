@@ -1,5 +1,4 @@
-fun main()
-{
+main(): fun {
     sysout("Hello World");
     ret 0;
 }
