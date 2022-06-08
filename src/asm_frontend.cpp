@@ -58,7 +58,7 @@ static std::string asm_f_variable(AST *ast)
 
 static std::string asm_f_int(AST *ast)
 {
-    return "";
+    return std::string("");
 }
 
 static std::string asm_f_call(AST *ast)
