@@ -76,7 +76,6 @@ public class Tokenizer
                 case ',': return MoveCurrentType(TokenType.TOKEN_COMMA);
                 case '"': return ParseId();
                 case '\0': break;
-                default: throw new UnexpectedCharacterException(); break;
             }
         }
 
