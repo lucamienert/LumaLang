@@ -1,4 +1,5 @@
 ﻿using Compiler.Exceptions;
+using Compiler.Types;
 
 namespace Compiler;
 
